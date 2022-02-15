@@ -3,23 +3,15 @@
 {% block title %}Hello DefaultController!{% endblock %}
 
 {% block body %}
-    <h1>I :heart: Maxfields</h1>
+    <h1  class="text-center">I <i class="bi-heart link-danger"></i> Maxfields</h1>
     <div class="row">
-
         {% for maxfield in maxfields %}
             <div class="col-8">{{ maxfield.name }}</div>
             <div class="col-4">
                 <a href="{{ path('maxfield_show', {'id': maxfield.id})}}">Show</a>
             </div>
-            {#        {{dump(maxfield)}}#}
         {% else %}
             You don't have any maxfields yet :(
         {% endfor %}
-    </div>
-
-    <div class="text-center">
-        <a href="http://www.wtfpl.net/">
-            <img src="{{ asset('build/images/wtfpl-logo-220x1601.png') }}" alt="WTFPL licensed">
-        </a>
     </div>
 {% endblock %}

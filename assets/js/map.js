@@ -114,7 +114,9 @@ class Map {
         const legend = L.control({position: 'topleft'})
         legend.onAdd = function () {
             let div = L.DomUtil.create('div', 'leaflet-bar')
-            div.innerHTML = '<a id="btnRoute" class="" title="Routing">R</a>'
+            div.innerHTML =
+                '<a id="btnRoute" class="" title="Routing">R</a>'
+                + '<a class="" href="/">Home</a>'//<br>'
             div.firstChild.onmousedown = div.firstChild.ondblclick = L.DomEvent.stopPropagation
             L.DomEvent.disableClickPropagation(div)
             return div
