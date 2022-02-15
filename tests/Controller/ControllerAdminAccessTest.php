@@ -22,16 +22,10 @@ class ControllerAdminAccessTest extends WebTestCase
             'login'                    => [
                 'statusCodes' => ['GET' => 200],
             ],
-            'user_index'               => [
+            'maxfield_show'                => [
                 'statusCodes' => ['GET' => 200],
             ],
-            'user_new'                 => [
-                'statusCodes' => ['GET' => 200, 'POST' => 200],
-            ],
-            'user_show'                => [
-                'statusCodes' => ['GET' => 200],
-            ],
-            'user_edit'                => [
+            'maxfield'                => [
                 'statusCodes' => ['GET' => 200, 'POST' => 200],
             ],
             'connect_google_api_token' => [

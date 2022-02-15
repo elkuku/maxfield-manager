@@ -139,6 +139,9 @@
     "egulias/email-validator": {
         "version": "3.1.2"
     },
+    "elkuku/maxfield-parser": {
+        "version": "dev-master"
+    },
     "felixfbecker/advanced-json-rpc": {
         "version": "v3.2.1"
     },

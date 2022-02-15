@@ -9,15 +9,17 @@ use App\Service\GpxHelper;
 use App\Service\MaxfieldHelper;
 use App\Service\MaxfieldParser;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/maxfield')]
+#[IsGranted('ROLE_USER')]
 class MaxfieldController extends BaseController
 {
-    #[Route('/', name: 'maxfield')]
+    #[Route('/', name: 'maxfield', methods: ['GET', 'POST'])]
     public function index(
         Request $request,
         EntityManagerInterface $entityManager,
@@ -56,11 +58,11 @@ class MaxfieldController extends BaseController
 
         return $this->renderForm('maxfield/index.html.twig', [
             'form' => $form,
-            'maxfields' => $this->getUser()->getMaxfields(),
+            'maxfields' => $this->getUser()?->getMaxfields(),
         ]);
     }
 
-    #[Route('/show/{id}', name: 'maxfield_show')]
+    #[Route('/show/{id}', name: 'maxfield_show', methods: ['GET'])]
     public function show(Maxfield $maxfield)
     {
         return $this->render(
