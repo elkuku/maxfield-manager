@@ -3,43 +3,23 @@
 {% block title %}Hello DefaultController!{% endblock %}
 
 {% block body %}
-    <div class="example-wrapper">
+    <h1>I :heart: Maxfields</h1>
+    <div class="row">
 
-        <h2>{{ 'system.welcome.message'|trans({'controller_name':controller_name}) }}</h2>
-        {% if app.user %}
-            <div class="alert alert-success">
-                <h4>Welcome {{ app.user.userIdentifier }}!</h4>
+        {% for maxfield in maxfields %}
+            <div class="col-8">{{ maxfield.name }}</div>
+            <div class="col-4">
+                <a href="{{ path('maxfield_show', {'id': maxfield.id})}}">Show</a>
             </div>
+            {#        {{dump(maxfield)}}#}
         {% else %}
-            <h4>
-                Use <code>symfony console user-admin</code> to create a user and <a href="{{ path('login') }}">log in</a>!
-            </h4>
-        {% endif %}
+            You don't have any maxfields yet :(
+        {% endfor %}
+    </div>
 
-        <h4>We're using Symfony <code>{{ symfony_version }}</code> on PHP <code>{{ php_version }}</code></h4>
-
-        This friendly message is coming from:
-        <ul>
-            <li>
-                Your project at <code>{{ project_dir }}</code>
-            </li>
-            <li>Your controller at <code>
-                    <a href="{{ (project_dir ~ '/src/Controller/DefaultController.php')|file_link(0) }}">src/Controller/DefaultController.php</a>
-                </code>
-            </li>
-            <li>Your template at <code>
-                    <a href="{{ (project_dir ~ '/templates/default/index.html.twig')|file_link(0) }}">templates/default/index.html.twig</a>
-                </code>
-            </li>
-        </ul>
-
-        <div data-controller="hello" class="alert alert-info">Stimulus test - LOADING...</div>
-
-        <div class="text-center">
-            <a href="http://www.wtfpl.net/">
-                <img src="{{ asset('build/images/wtfpl-logo-220x1601.png') }}" alt="WTFPL licensed">
-            </a>
-        </div>
-
+    <div class="text-center">
+        <a href="http://www.wtfpl.net/">
+            <img src="{{ asset('build/images/wtfpl-logo-220x1601.png') }}" alt="WTFPL licensed">
+        </a>
     </div>
 {% endblock %}
