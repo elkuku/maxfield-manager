@@ -4,6 +4,15 @@
 
 {% block body %}
     <h1  class="text-center">I <i class="bi-heart link-danger"></i> Maxfields</h1>
+    {% if app.user %}
+        <div class="alert alert-success">
+            <h4>Welcome {{ app.user.userIdentifier }}!</h4>
+        </div>
+    {% else %}
+        <h4>
+            Howdy stranger =;)
+        </h4>
+    {% endif %}
     <div class="row">
         {% for maxfield in maxfields %}
             <div class="col-8">{{ maxfield.name }}</div>

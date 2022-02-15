@@ -14,7 +14,7 @@ class UserAccessTest extends WebTestCase
         $client->request('GET', '/');
 
         self::assertResponseIsSuccessful();
-        self::assertSelectorTextContains('h2', 'Hello DefaultController!');
+        self::assertSelectorTextContains('h4', 'Howdy stranger =;)');
 
         $userRepository = static::getContainer()->get(UserRepository::class);
 
