@@ -3,8 +3,14 @@ import $ from 'jquery'
 import 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
+import 'leaflet-fullscreen'
+import 'leaflet-fullscreen/dist/leaflet.fullscreen.css'
+
 import 'leaflet.locatecontrol'
 import 'leaflet.locatecontrol/dist/L.Control.Locate.css'
+
+import 'leaflet-routing-machine'
+import 'leaflet-routing-machine/dist/leaflet-routing-machine.css'
 
 import '../styles/map.css'
 
@@ -41,8 +47,6 @@ class Map {
             layers: [grayscale, this.farmLayer, this.linkLayer],
             fullscreenControl: true
         });
-
-        this.addFileInputControl()
 
         const baseLayers = {
             "Grayscale": grayscale,
@@ -93,40 +97,24 @@ class Map {
         this.map.on('locationfound', this.onLocationFound.bind(this));
 
         // Routing control
-        // this.routingControl = L.Routing.control({
-        //     fitSelectedRoutes: false,
-        //     createMarker: function () {
-        //         return false
-        //     }
-        // }).addTo(this.map);
+        this.routingControl = L.Routing.control({
+            fitSelectedRoutes: false,
+            createMarker: function () {
+                return false
+            }
+        })
+            // .addTo(this.map);
 
         this.routingEnabled = false
 
         this.addButtons()
     }
 
-    addFileInputControl() {
-        const legend = L.control({position: 'topright'})
-
-        legend.onAdd = function () {
-            let div = L.DomUtil.create('div', 'info legend')
-            div.innerHTML = '<input type="file" id="file-input" /><br>'
-            div.firstChild.onmousedown = div.firstChild.ondblclick = L.DomEvent.stopPropagation
-            L.DomEvent.disableClickPropagation(div)
-            return div
-        }
-
-        legend.addTo(this.map)
-
-        document.getElementById('file-input')
-            .addEventListener('change', this.readSingleFile.bind(this), false);
-    }
-
     addButtons() {
         const legend = L.control({position: 'topleft'})
         legend.onAdd = function () {
             let div = L.DomUtil.create('div', 'leaflet-bar')
-            div.innerHTML = '<a id="btnRoute" class="routing-enabled" title="Routing">R</a>'
+            div.innerHTML = '<a id="btnRoute" class="" title="Routing">R</a>'
             div.firstChild.onmousedown = div.firstChild.ondblclick = L.DomEvent.stopPropagation
             L.DomEvent.disableClickPropagation(div)
             return div
@@ -147,20 +135,6 @@ class Map {
             $(e.target).addClass('routing-enabled')
             this.routingControl.addTo(this.map)
         }
-    }
-
-    readSingleFile(e) {
-        const file = e.target.files[0];
-        if (!file) {
-            return;
-        }
-        const reader = new FileReader();
-        const self = this
-        reader.onload = function (e) {
-            const contents = e.target.result;
-            self.parseGpx(contents);
-        };
-        reader.readAsText(file);
     }
 
     parseGpx(contents) {

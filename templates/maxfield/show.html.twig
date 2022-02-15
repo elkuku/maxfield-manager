@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'base-map.html.twig' %}
 
 {% block title %}
     {{ maxfield.name }}
@@ -20,6 +20,7 @@
 
     <script>
         {#const gpxString = '{{ maxfield.gpx|raw }}'#}
+        //hey
         const gpxString = '{{ gpx|raw }}'
     </script>
 {% endblock %}

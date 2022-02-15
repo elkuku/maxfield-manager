@@ -69,9 +69,8 @@ class MaxfieldController extends BaseController
             'maxfield/show.html.twig',
             [
                 'maxfield' => $maxfield,
-                'gpx' => str_replace("\n", '', $maxfield->getGpx()),
+                'gpx' => str_replace(["\r\n", "\n", "'"], '', $maxfield->getGpx()),
             ]
         );
-
     }
 }

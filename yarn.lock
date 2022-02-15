@@ -1164,6 +1164,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mapbox/corslite@npm:0.0.7":
+  version: 0.0.7
+  resolution: "@mapbox/corslite@npm:0.0.7"
+  checksum: 4aa71a5e86e1a5d5696963f1f4d5721daba7765590173bcad1dd92c78c178d2cad93320cf5abab935ec1ba191f5cf79cbe63da0d5a8f2c603a96f19a7c72c304
+  languageName: node
+  linkType: hard
+
+"@mapbox/polyline@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "@mapbox/polyline@npm:0.2.0"
+  bin:
+    polyline: bin/polyline.bin.js
+  checksum: 4d998a7130236b98563111e76c0627868a1896abf47a0864743734455c67f8080f5513ec05376763c21b9f6c78d919d9ea0fabd3daa3dc2dad9c41e9cc11d94b
+  languageName: node
+  linkType: hard
+
 "@nodelib/fs.scandir@npm:2.1.4":
   version: 2.1.4
   resolution: "@nodelib/fs.scandir@npm:2.1.4"
@@ -4488,6 +4504,17 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
+"leaflet-routing-machine@npm:^3.2.12":
+  version: 3.2.12
+  resolution: "leaflet-routing-machine@npm:3.2.12"
+  dependencies:
+    "@mapbox/corslite": 0.0.7
+    "@mapbox/polyline": ^0.2.0
+    osrm-text-instructions: ^0.13.2
+  checksum: 4f1b2ddcf0403817c8dd2a9148febfa5a710a835d26490f3a3e65fd8631bf314a6209bfbabd68d1968211ecdd4fc92524396aca7b759e3ec352243ae63e74b46
+  languageName: node
+  linkType: hard
+
 "leaflet.locatecontrol@npm:^0.76.0":
   version: 0.76.0
   resolution: "leaflet.locatecontrol@npm:0.76.0"
@@ -5093,6 +5120,13 @@ fsevents@~2.3.2:
     is-docker: ^2.1.1
     is-wsl: ^2.2.0
   checksum: 69c86cddeaec0917fae43fa3c8801a6a11d0c8794da66556f1987233961f8558a952570a61c1991ee53d31117efb5774c8df87c70509ad6fec0c79adf34864d7
+  languageName: node
+  linkType: hard
+
+"osrm-text-instructions@npm:^0.13.2":
+  version: 0.13.4
+  resolution: "osrm-text-instructions@npm:0.13.4"
+  checksum: 2a0eab58fc4e6e7348f68264092b147279e9f7971aa94e4b3feea2ba69fc81ca8df14004f72e96fae1e460042e1babfc38643000e64294dfcec07cc39e42d9c9
   languageName: node
   linkType: hard
 
@@ -6194,6 +6228,7 @@ fsevents@~2.3.2:
     jquery: ^3.6.0
     leaflet: ^1.6.0
     leaflet-fullscreen: ^1.0.2
+    leaflet-routing-machine: ^3.2.12
     leaflet.locatecontrol: ^0.76.0
     open-iconic: ^1.1.1
     regenerator-runtime: ^0.13.9
