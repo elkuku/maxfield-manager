@@ -5,10 +5,9 @@ namespace App\Controller;
 use App\Entity\Maxfield;
 use App\Form\MaxfieldZipType;
 use App\Service\FileUploader;
-use App\Service\GpxHelper;
-use App\Service\MaxfieldHelper;
-use App\Service\MaxfieldParser;
 use Doctrine\ORM\EntityManagerInterface;
+use Elkuku\MaxfieldParser\GpxHelper;
+use Elkuku\MaxfieldParser\MaxfieldParser;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,8 +23,6 @@ class MaxfieldController extends BaseController
         Request $request,
         EntityManagerInterface $entityManager,
         FileUploader $fileUploader,
-        MaxfieldHelper $maxfieldHelper,
-        GpxHelper $gpxHelper,
     ): Response {
         $form = $this->createForm(MaxfieldZipType::class);
         $form->handleRequest($request);
@@ -36,13 +33,13 @@ class MaxfieldController extends BaseController
 
             if ($zipFile) {
                 $uploadPath = $fileUploader->upload($zipFile);
-                $parser = new MaxfieldParser($uploadPath);
 
                 $parts = explode(DIRECTORY_SEPARATOR, $uploadPath);
 
                 $name = end($parts);
 
-                $gpx = $gpxHelper->getRouteTrackGpx($parser);
+                $gpx = (new GpxHelper())
+                    ->getRouteTrackGpx(new MaxfieldParser($uploadPath));
 
                 $maxfield = (new Maxfield())
                     ->setName($name)
