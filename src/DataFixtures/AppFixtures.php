@@ -30,7 +30,6 @@ class AppFixtures extends Fixture
                 ->setName('test')
                 ->setGpx('test')
                 ->setOwner($user)
-                // ->setRoles([User::ROLES['admin']])
         );
 
         $manager->flush();

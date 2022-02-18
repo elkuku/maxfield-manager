@@ -60,7 +60,7 @@ class MaxfieldController extends BaseController
     }
 
     #[Route('/show/{id}', name: 'maxfield_show', methods: ['GET'])]
-    public function show(Maxfield $maxfield)
+    public function show(Maxfield $maxfield): Response
     {
         return $this->render(
             'maxfield/show.html.twig',
