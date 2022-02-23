@@ -8,21 +8,24 @@
         <div class="alert alert-success">
             <h4>Welcome {{ app.user.userIdentifier }}!</h4>
         </div>
-    {% else %}
-        <h4>
-            Howdy stranger =;)
-        </h4>
-    {% endif %}
         {% for maxfield in maxfields %}
             <div class="row maxfield-row">
-            <div class="col-8">
-                <a href="{{ path('maxfield_show', {'id': maxfield.id})}}">{{ maxfield.name }}</a>
-            </div>
-            <div class="col-4">
-                <a href="{{ path('maxfield_edit', {'id': maxfield.id})}}">Edit</a>
-            </div>
+                <div class="col-8">
+                    <a href="{{ path('maxfield_show', {'id': maxfield.id})}}">{{ maxfield.name }}</a>
+                </div>
+                <div class="col-4">
+                    <a href="{{ path('maxfield_edit', {'id': maxfield.id})}}">Edit</a>
+                </div>
             </div>
         {% else %}
-            You don't have any maxfields yet :(
+            You don't have any maxfields yet <code>:(</code>
+            <p>
+                <a href="{{ path('maxfield_new') }}" class="btn btn-success">Create a new Maxfield!</a>
+            </p>
         {% endfor %}
+    {% else %}
+        <h4>
+            Howdy stranger <code>=;)</code> Please <a href="{{ path('login') }}">Log in!</a>
+        </h4>
+    {% endif %}
 {% endblock %}
