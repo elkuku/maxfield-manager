@@ -82,30 +82,15 @@ class ControllerAccessTest extends WebTestCase
                 $methods = ['GET'];
             }
 
-            $path = str_replace('{id}', $defaultId, $route->getPath());
+            $path = str_replace('{id}', (string)$defaultId, $route->getPath());
             $out = false;
             foreach ($methods as $method) {
                 $expectedStatusCode = 302;
                 if (array_key_exists($method, $expectedStatusCodes)) {
                     $expectedStatusCode = $expectedStatusCodes[$method];
                 }
-                if ($out) {
-                    echo sprintf(
-                        'Testing: %s - %s Expected: %s ... ',
-                        $method,
-                        $path,
-                        $expectedStatusCode,
-                    );
-                }
 
                 $browser->request($method, $path);
-
-                if ($out) {
-                    echo sprintf(
-                            ' got: %s',
-                            $browser->getResponse()->getStatusCode()
-                        ).PHP_EOL;
-                }
 
                 self::assertEquals(
                     $expectedStatusCode,

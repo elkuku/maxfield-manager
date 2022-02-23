@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Maxfield{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>New Maxfield</h1>
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+
+        {{ form_row(form.zipfile) }}
+
+        <button class="btn btn-outline-success">Upload</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

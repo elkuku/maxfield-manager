@@ -50,3 +50,7 @@ form.form-nomargin {
 .drag-handle {
     cursor: grab;
 }
+
+.maxfield-row:hover {
+    background-color: #97e7df;
+}

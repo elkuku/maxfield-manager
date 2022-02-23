@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Maxfield;
+use App\Form\MaxfieldType;
 use App\Form\MaxfieldZipType;
 use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
@@ -18,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[IsGranted('ROLE_USER')]
 class MaxfieldController extends BaseController
 {
-    #[Route('/', name: 'maxfield', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'maxfield_new', methods: ['GET', 'POST'])]
     public function index(
         Request $request,
         EntityManagerInterface $entityManager,
@@ -28,10 +29,9 @@ class MaxfieldController extends BaseController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var UploadedFile $zipFile */
             $zipFile = $form->get('zipfile')->getData();
 
-            if ($zipFile) {
+            if ($zipFile instanceof UploadedFile) {
                 $uploadPath = $fileUploader->upload($zipFile);
 
                 $parts = explode(DIRECTORY_SEPARATOR, $uploadPath);
@@ -50,11 +50,13 @@ class MaxfieldController extends BaseController
                 $entityManager->flush();
 
                 $this->addFlash('success', 'File has been uploaded');
+
+                return $this->redirectToRoute('default');
             }
         }
 
-        return $this->renderForm('maxfield/index.html.twig', [
-            'form' => $form,
+        return $this->renderForm('maxfield/new.html.twig', [
+            'form'      => $form,
             'maxfields' => $this->getUser()?->getMaxfields(),
         ]);
     }
@@ -66,8 +68,63 @@ class MaxfieldController extends BaseController
             'maxfield/show.html.twig',
             [
                 'maxfield' => $maxfield,
-                'gpx' => str_replace(["\r\n", "\n", "'"], '', $maxfield->getGpx()),
+                'gpx'      => str_replace(["\r\n", "\n", "'"],
+                    '',
+                    $maxfield->getGpx()),
             ]
         );
+    }
+
+    #[Route('/edit/{id}', name: 'maxfield_edit', methods: ['GET', 'POST'])]
+    public function edit(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        Maxfield $maxfield,
+    ): Response {
+        if (!$this->isGranted('ROLE_ADMIN')
+            && $maxfield->getOwner() !== $this->getUser()
+        ) {
+            throw $this->createAccessDeniedException('No access for you!');
+        }
+
+        $form = $this->createForm(MaxfieldType::class, $maxfield);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $maxfield = $form->getData();
+            $entityManager->persist($maxfield);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Maxfield updated!');
+
+            return $this->redirectToRoute('default');
+        }
+
+        return $this->renderForm(
+            'maxfield/edit.html.twig',
+            [
+                'form'     => $form,
+                'maxfield'     => $maxfield,
+            ]
+        );
+    }
+
+    #[Route('/delete/{id}', name: 'maxfield_delete', methods: ['GET'])]
+    public function delete(
+        EntityManagerInterface $entityManager,
+        Maxfield $maxfield,
+    ): Response {
+        if (!$this->isGranted('ROLE_ADMIN')
+            && $maxfield->getOwner() !== $this->getUser()
+        ) {
+            throw $this->createAccessDeniedException('No access for you!');
+        }
+
+        $entityManager->remove($maxfield);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Maxfield has been removed.');
+
+        return $this->redirectToRoute('default');
     }
 }

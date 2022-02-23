@@ -11,7 +11,7 @@ class Maxfield
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private int $id = 0;
 
     #[ORM\Column(type: 'string', length: 150)]
     private ?string $name;

@@ -25,7 +25,10 @@ class ControllerAdminAccessTest extends WebTestCase
             'maxfield_show'                => [
                 'statusCodes' => ['GET' => 200],
             ],
-            'maxfield'                => [
+            'maxfield_new'                => [
+                'statusCodes' => ['GET' => 200, 'POST' => 200],
+            ],
+            'maxfield_edit'                => [
                 'statusCodes' => ['GET' => 200, 'POST' => 200],
             ],
             'connect_google_api_token' => [
@@ -100,24 +103,9 @@ class ControllerAdminAccessTest extends WebTestCase
                 if (array_key_exists($method, $expectedStatusCodes)) {
                     $expectedStatusCode = $expectedStatusCodes[$method];
                 }
-                if ($out) {
-                    echo sprintf(
-                        'Testing: %s - %s Expected: %s ... ',
-                        $method,
-                        $path,
-                        $expectedStatusCode,
-                    );
-                }
 
                 $browser->loginUser($user);
                 $browser->request($method, $path);
-
-                if ($out) {
-                    echo sprintf(
-                            ' got: %s',
-                            $browser->getResponse()->getStatusCode()
-                        ).PHP_EOL;
-                }
 
                 self::assertEquals(
                     $expectedStatusCode,
