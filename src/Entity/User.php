@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
-use Doctrine\Common\Collections\AbstractLazyCollection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -13,7 +12,6 @@ use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
-use Doctrine\ORM\PersistentCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -37,6 +35,9 @@ class User implements UserInterface
     #[Assert\NotBlank]
     private string $identifier = '';
 
+    /**
+     * @var array<string>
+     */
     #[Column(type: Types::JSON)]
     private array $roles = [];
 
@@ -46,6 +47,9 @@ class User implements UserInterface
     #[Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $gitHubId = '';
 
+    /**
+     * @var Collection<int, Maxfield>
+     */
     #[OneToMany(mappedBy: 'owner', targetEntity: Maxfield::class)]
     private Collection $maxfields;
 
@@ -54,6 +58,9 @@ class User implements UserInterface
         $this->maxfields = new ArrayCollection();
     }
 
+    /**
+     * @return array{ id: integer|null, identifier: string|null}
+     */
     public function __serialize(): array
     {
         return [
@@ -62,6 +69,9 @@ class User implements UserInterface
         ];
     }
 
+    /**
+     * @param array{ id: int|null, identifier: string|null} $data
+     */
     public function __unserialize(array $data): void
     {
         $this->id = $data['id'];
@@ -87,6 +97,9 @@ class User implements UserInterface
         return array_unique($roles);
     }
 
+    /**
+     * @param array<string> $roles
+     */
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
@@ -146,7 +159,7 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Maxfield[]
+     * @return Collection<int, Maxfield>
      */
     public function getMaxfields(): Collection
     {

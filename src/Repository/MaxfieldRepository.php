@@ -11,12 +11,18 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Maxfield|null findOneBy(array $criteria, array $orderBy = null)
  * @method Maxfield[]    findAll()
  * @method Maxfield[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ *
+ * @extends ServiceEntityRepository<MaxfieldRepository>
  */
 class MaxfieldRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Maxfield::class);
+        /**
+         * @var class-string<MaxfieldRepository>
+         */
+        $className = Maxfield::class;
+        parent::__construct($registry, $className);
     }
 
     // /**

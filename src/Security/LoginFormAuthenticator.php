@@ -50,6 +50,9 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         );
     }
 
+    /**
+     * @return array{identifier: bool|float|int|string|null, csrf_token: bool|float|int|string|null}
+     */
     #[ArrayShape(['identifier' => "string", 'csrf_token' => "string"])]
     private function getCredentials(
         Request $request
