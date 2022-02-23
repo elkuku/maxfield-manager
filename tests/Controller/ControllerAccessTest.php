@@ -5,6 +5,7 @@ namespace App\Tests\Controller;
 use DirectoryIterator;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
+use Symfony\Bundle\FrameworkBundle\Routing\DelegatingLoader;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Routing\Route;
 
@@ -35,6 +36,10 @@ class ControllerAccessTest extends WebTestCase
     public function testRoutes(): void
     {
         $client = static::createClient();
+
+        /**
+         * @var DelegatingLoader $routeLoader
+         */
         $routeLoader = static::bootKernel()->getContainer()
             ->get('routing.loader');
 

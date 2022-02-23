@@ -16,9 +16,12 @@ class UserAccessTest extends WebTestCase
         self::assertResponseIsSuccessful();
         self::assertSelectorTextContains('h4', 'Howdy stranger =;)');
 
+        /**
+         * @var UserRepository $userRepository
+         */
         $userRepository = static::getContainer()->get(UserRepository::class);
 
-        $user = $userRepository->findOneByIdentifier('user');
+        $user = $userRepository->findOneBy(['identifier' => 'user']);
 
         $client->loginUser($user);
 
