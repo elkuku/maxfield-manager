@@ -7,6 +7,7 @@ use DirectoryIterator;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Routing\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -14,6 +15,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class ControllerAdminAccessTest extends WebTestCase
 {
+    /**
+     * @var array<string, array<string, array<string, int>>>
+     */
     private array $exceptions
         = [
             'default'                  => [
@@ -74,6 +78,9 @@ class ControllerAdminAccessTest extends WebTestCase
         }
     }
 
+    /**
+     * @param array<Route> $routes
+     */
     private function processRoutes(array $routes, KernelBrowser $browser, UserInterface $user): void
     {
         foreach ($routes as $routeName => $route) {
@@ -96,8 +103,7 @@ class ControllerAdminAccessTest extends WebTestCase
             }
 
             $methods = $route->getMethods() ?: ['GET'];
-            $path = str_replace('{id}', $defaultId, $route->getPath());
-            $out = false;
+            $path = str_replace('{id}', (string)$defaultId, $route->getPath());
             foreach ($methods as $method) {
                 $expectedStatusCode = 302;
                 if (array_key_exists($method, $expectedStatusCodes)) {
