@@ -70,7 +70,7 @@ class User implements UserInterface
     }
 
     /**
-     * @param array{ id: int|null, identifier: string|null} $data
+     * @param array{ id: int, identifier: string} $data
      */
     public function __unserialize(array $data): void
     {
@@ -122,7 +122,7 @@ class User implements UserInterface
         return $this->identifier;
     }
 
-    public function setIdentifier(?string $identifier): self
+    public function setIdentifier(string $identifier): self
     {
         $this->identifier = $identifier;
 
