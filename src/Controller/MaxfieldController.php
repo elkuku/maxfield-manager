@@ -70,7 +70,7 @@ class MaxfieldController extends BaseController
                 'maxfield' => $maxfield,
                 'gpx'      => str_replace(["\r\n", "\n", "'"],
                     '',
-                    $maxfield->getGpx()),
+                    (string)$maxfield->getGpx()),
             ]
         );
     }

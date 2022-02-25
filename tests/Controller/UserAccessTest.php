@@ -21,6 +21,9 @@ class UserAccessTest extends WebTestCase
          */
         $userRepository = static::getContainer()->get(UserRepository::class);
 
+        /**
+         * @var \Symfony\Component\Security\Core\User\UserInterface $user
+         */
         $user = $userRepository->findOneBy(['identifier' => 'user']);
 
         $client->loginUser($user);

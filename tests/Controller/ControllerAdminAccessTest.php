@@ -53,6 +53,9 @@ class ControllerAdminAccessTest extends WebTestCase
          */
         $userRepository = static::getContainer()->get(UserRepository::class);
 
+        /**
+         * @var \Symfony\Component\Security\Core\User\UserInterface $user
+         */
         $user = $userRepository->findOneBy(['identifier' => 'admin']);
 
         /**

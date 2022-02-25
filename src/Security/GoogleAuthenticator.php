@@ -82,7 +82,7 @@ class GoogleAuthenticator extends AbstractAuthenticator
         } else {
             // Register new user
             $user = (new User())
-                ->setIdentifier($googleUser->getEmail())
+                ->setIdentifier((string)$googleUser->getEmail())
                 ->setGoogleId($googleUser->getId());
         }
 
