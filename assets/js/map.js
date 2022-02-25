@@ -189,13 +189,14 @@ class Map {
 
         markerObjects.forEach(function (o) {
             const num = o.desc.replace('Farm keys:', '')
+            const css = num > 3 ? 'circle farmalot' : 'circle'
             let marker =
                 L.marker(
                     L.latLng(o.lat, o.lon),
                     {
                         icon: L.divIcon({
                             className: 'farm-layer',
-                            html: '<b class="circle">' + num + '</b>'
+                            html: '<b class="' + css + '">' + num + '</b>'
                         })
                     }
                 ).bindPopup('<b>' + o.name + '</b><br>' + o.desc)

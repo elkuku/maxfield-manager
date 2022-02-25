@@ -49,6 +49,9 @@ button#btnNext:hover {
     text-align: center;
 }
 
+.circle.farmalot {
+    background-color: #e7e1a5;
+}
 .circle-dest {
     background: #ffd840;
     font-size: 1.6em;
