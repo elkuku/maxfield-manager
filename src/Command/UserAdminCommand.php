@@ -5,7 +5,7 @@ namespace App\Command;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Elkuku\SymfonyUtils\Command\UserAdminCommand as UserAdminBaseCommand;
+use Elkuku\SymfonyUtils\Command\UserAdminBaseCommand;
 use Symfony\Component\Console\Attribute\AsCommand;
 
 #[AsCommand(
