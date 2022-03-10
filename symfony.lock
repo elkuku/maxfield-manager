@@ -120,6 +120,9 @@
     "elkuku/maxfield-parser": {
         "version": "dev-master"
     },
+    "elkuku/symfony-utils": {
+        "version": "dev-master"
+    },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
     },
