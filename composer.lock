@@ -1642,12 +1642,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/elkuku/symfony-utils.git",
-                "reference": "9bd4e70a8f75bfaec085ccc18472da9443ab2679"
+                "reference": "1ce97949fdff22b4625510db0b3a500a1f32797d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elkuku/symfony-utils/zipball/9bd4e70a8f75bfaec085ccc18472da9443ab2679",
-                "reference": "9bd4e70a8f75bfaec085ccc18472da9443ab2679",
+                "url": "https://api.github.com/repos/elkuku/symfony-utils/zipball/1ce97949fdff22b4625510db0b3a500a1f32797d",
+                "reference": "1ce97949fdff22b4625510db0b3a500a1f32797d",
                 "shasum": ""
             },
             "require": {
@@ -1685,7 +1685,7 @@
                 "issues": "https://github.com/elkuku/symfony-utils/issues",
                 "source": "https://github.com/elkuku/symfony-utils/tree/master"
             },
-            "time": "2022-03-10T13:58:37+00:00"
+            "time": "2022-03-10T14:55:46+00:00"
         },
         {
             "name": "friendsofphp/proxy-manager-lts",
