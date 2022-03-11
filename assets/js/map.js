@@ -154,7 +154,7 @@ class Map {
                 lat: wpts[i].getAttribute("lat"),
                 lon: wpts[i].getAttribute("lon"),
                 name: wpts[i].getElementsByTagName('name')[0].innerHTML,
-                desc: wpts[i].getElementsByTagName('desc')[0].innerHTML,
+                description: wpts[i].getElementsByTagName('desc')[0].innerHTML,
             })
         }
 
@@ -163,12 +163,12 @@ class Map {
                 lat: trackpoints[i].getAttribute("lat"),
                 lon: trackpoints[i].getAttribute("lon"),
                 name: trackpoints[i].getElementsByTagName('name')[0].innerHTML,
-                desc: trackpoints[i].getElementsByTagName('desc')[0].innerHTML,
+                description: trackpoints[i].getElementsByTagName('desc')[0].innerHTML,
             })
         }
 
         const maxfield = {
-            wayPoints: waypoints,
+            waypoints: waypoints,
             links: track,
         }
 
@@ -178,7 +178,7 @@ class Map {
     displayMaxFieldData(maxField) {
         this.links = maxField.links
 
-        this.loadFarmLayer(maxField.wayPoints)
+        this.loadFarmLayer(maxField.waypoints)
         this.loadLinkLayer()
 
         this.addLinkSelector()
@@ -188,7 +188,7 @@ class Map {
         this.farmLayer.clearLayers()
 
         markerObjects.forEach(function (o) {
-            const num = o.desc.replace('Farm keys:', '')
+            const num = o.description.replace('Farm keys:', '')
             const css = num > 3 ? 'circle farmalot' : 'circle'
             let marker =
                 L.marker(
@@ -199,7 +199,7 @@ class Map {
                             html: '<b class="' + css + '">' + num + '</b>'
                         })
                     }
-                ).bindPopup('<b>' + o.name + '</b><br>' + o.desc)
+                ).bindPopup('<b>' + o.name + '</b><br>' + o.description)
             this.farmLayer.addLayer(marker)
         }.bind(this))
 
@@ -209,11 +209,15 @@ class Map {
     loadLinkLayer() {
         let pointList = []
         let num = 1
+        let description = ''
         this.linkLayer.clearLayers()
         this.links.forEach(function (link) {
             pointList.push(L.latLng(link.lat, link.lon))
-            const description = link.desc.replace(/\*BR\*/g, '<br/>')
-
+            if (link.links) {
+                description = link.links.join('<br/>')
+            } else {
+                description = link.description.replace(/\*BR\*/g, '<br/>')
+            }
             L.marker([link.lat, link.lon], {
                 icon: L.divIcon({
                     className: 'link-layer',
@@ -287,10 +291,11 @@ class Map {
 
         this.map.panTo(this.destination)
 
-        const description = destination.desc.replace(/\*BR\*/g, '<br/>')
+        // const description = destination.desc.replace(/\*BR\*/g, '<br/>')
+        const description = destination.links.join('<br/>')
 
         this.destinationMarker.setLatLng(this.destination)
-            .bindPopup('<b>' + destination.name + '</b><br>' + description)
+            .bindPopup('<b>' + destination.name + '</b><hr>' + description)
             .setIcon(
                 L.divIcon({
                     html: '<b class="circle circle-dest">' + (parseInt(id) + 1) + '</b>'
@@ -327,5 +332,12 @@ class Map {
 
 const map = new Map('map')
 
-// map.displayMaxFieldData($('#jsData').data('maxfield'))
-map.parseGpx(gpxString)
+const jsonData = JSON.parse(document.getElementById("map").dataset.maxfieldData)
+
+if (jsonData) {
+    map.displayMaxFieldData(jsonData)
+
+} else {
+    map.parseGpx(gpxString)
+}
+

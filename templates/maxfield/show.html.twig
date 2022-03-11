@@ -15,12 +15,12 @@
 {% endblock %}
 
 {% block body %}
-    {# {{dump(maxfield)}} #}
-    <div id="map"></div>
+    <div
+            id="map"
+            data-maxfield-data='{{ jsonData|json_encode }}'
+    ></div>
 
     <script>
-        {#const gpxString = '{{ maxfield.gpx|raw }}'#}
-        //hey
         const gpxString = '{{ gpx|raw }}'
     </script>
 {% endblock %}

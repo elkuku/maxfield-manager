@@ -8,6 +8,7 @@ use App\Form\MaxfieldZipType;
 use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Elkuku\MaxfieldParser\GpxHelper;
+use Elkuku\MaxfieldParser\JsonHelper;
 use Elkuku\MaxfieldParser\MaxfieldParser;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -20,7 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class MaxfieldController extends BaseController
 {
     #[Route('/new', name: 'maxfield_new', methods: ['GET', 'POST'])]
-    public function index(
+    public function new(
         Request $request,
         EntityManagerInterface $entityManager,
         FileUploader $fileUploader,
@@ -38,12 +39,22 @@ class MaxfieldController extends BaseController
 
                 $name = end($parts);
 
+                $parser = new MaxfieldParser($uploadPath);
+
+                $maxfieldObject = $parser->parse();
+
+                $aaa = json_encode($maxfieldObject, JSON_THROW_ON_ERROR);
+
                 $gpx = (new GpxHelper())
                     ->getRouteTrackGpx(new MaxfieldParser($uploadPath));
+
+                $json = (new JsonHelper())
+                    ->getJsonData(new MaxfieldParser($uploadPath));
 
                 $maxfield = (new Maxfield())
                     ->setName($name)
                     ->setGpx($gpx)
+                    ->setJsonData($json)
                     ->setOwner($this->getUser());
 
                 $entityManager->persist($maxfield);
@@ -68,6 +79,7 @@ class MaxfieldController extends BaseController
             'maxfield/show.html.twig',
             [
                 'maxfield' => $maxfield,
+                'jsonData' => $maxfield->getJsonData(),
                 'gpx'      => str_replace(["\r\n", "\n", "'"],
                     '',
                     (string)$maxfield->getGpx()),
@@ -104,7 +116,7 @@ class MaxfieldController extends BaseController
             'maxfield/edit.html.twig',
             [
                 'form'     => $form,
-                'maxfield'     => $maxfield,
+                'maxfield' => $maxfield,
             ]
         );
     }

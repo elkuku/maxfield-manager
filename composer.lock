@@ -1598,12 +1598,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/elkuku/maxfield-parser.git",
-                "reference": "a4d1a5f304fc35c1a8175135c11713a93c5287f0"
+                "reference": "1ebf98df5fe4dddb9d12738c508eec32109893b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elkuku/maxfield-parser/zipball/a4d1a5f304fc35c1a8175135c11713a93c5287f0",
-                "reference": "a4d1a5f304fc35c1a8175135c11713a93c5287f0",
+                "url": "https://api.github.com/repos/elkuku/maxfield-parser/zipball/1ebf98df5fe4dddb9d12738c508eec32109893b8",
+                "reference": "1ebf98df5fe4dddb9d12738c508eec32109893b8",
                 "shasum": ""
             },
             "require": {
@@ -1634,7 +1634,7 @@
                 "issues": "https://github.com/elkuku/maxfield-parser/issues",
                 "source": "https://github.com/elkuku/maxfield-parser/tree/master"
             },
-            "time": "2022-02-22T14:46:57+00:00"
+            "time": "2022-03-11T16:13:10+00:00"
         },
         {
             "name": "elkuku/symfony-utils",
