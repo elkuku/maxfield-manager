@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
+use Elkuku\MaxfieldParser\Type\Waypoint;
 
 #[Entity(repositoryClass: MaxfieldRepository::class)]
 class Maxfield
@@ -29,7 +30,7 @@ class Maxfield
     private ?User $owner;
 
     /**
-     * @var array<string>
+     * @var array<string, array<Waypoint|\stdClass>>
      */
     #[Column(type: Types::JSON, nullable: true)]
     private ?array $jsonData = [];
@@ -75,11 +76,17 @@ class Maxfield
         return $this;
     }
 
+    /**
+     * @return array<string, array<Waypoint|\stdClass>>|null
+     */
     public function getJsonData(): ?array
     {
         return $this->jsonData;
     }
 
+    /**
+     * @param array<string, array<Waypoint|\stdClass>>|null $jsonData
+     */
     public function setJsonData(?array $jsonData): self
     {
         $this->jsonData = $jsonData;
