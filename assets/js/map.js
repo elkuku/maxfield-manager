@@ -291,7 +291,6 @@ class Map {
 
         this.map.panTo(this.destination)
 
-        // const description = destination.desc.replace(/\*BR\*/g, '<br/>')
         const description = destination.links.join('<br/>')
 
         this.destinationMarker.setLatLng(this.destination)

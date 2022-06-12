@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Elkuku\MaxfieldParser\Type\Waypoint;
+use stdClass;
 
 #[Entity(repositoryClass: MaxfieldRepository::class)]
 class Maxfield
@@ -22,9 +23,6 @@ class Maxfield
     #[Column(type: Types::STRING, length: 150)]
     private ?string $name;
 
-    #[Column(type: Types::TEXT)]
-    private ?string $gpx;
-
     #[ManyToOne(targetEntity: User::class, inversedBy: 'maxfields')]
     #[JoinColumn(nullable: false)]
     private ?User $owner;
@@ -33,7 +31,7 @@ class Maxfield
      * @var array<string, array<Waypoint|\stdClass>>
      */
     #[Column(type: Types::JSON, nullable: true)]
-    private ?array $jsonData = [];
+    private array|stdClass|null $jsonData = null;
 
     public function getId(): ?int
     {
@@ -48,18 +46,6 @@ class Maxfield
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getGpx(): ?string
-    {
-        return $this->gpx;
-    }
-
-    public function setGpx(string $gpx): self
-    {
-        $this->gpx = $gpx;
 
         return $this;
     }
@@ -87,7 +73,7 @@ class Maxfield
     /**
      * @param array<string, array<Waypoint|\stdClass>>|null $jsonData
      */
-    public function setJsonData(?array $jsonData): self
+    public function setJsonData(array|stdClass $jsonData): self
     {
         $this->jsonData = $jsonData;
 

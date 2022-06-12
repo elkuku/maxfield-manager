@@ -113,7 +113,6 @@
       <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-fixtures-bundle" />
       <path value="$PROJECT_DIR$/vendor/dama/doctrine-test-bundle" />
       <path value="$PROJECT_DIR$/vendor/doctrine/deprecations" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php81" />
       <path value="$PROJECT_DIR$/vendor/symfony/password-hasher" />
       <path value="$PROJECT_DIR$/vendor/symfony/runtime" />
       <path value="$PROJECT_DIR$/vendor/theseer/tokenizer" />
@@ -158,6 +157,7 @@
       <path value="$PROJECT_DIR$/vendor/elkuku/maxfield-parser" />
       <path value="$PROJECT_DIR$/vendor/jetbrains/phpstorm-attributes" />
       <path value="$PROJECT_DIR$/vendor/elkuku/symfony-utils" />
+      <path value="$PROJECT_DIR$/vendor/masterminds/html5" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1" />

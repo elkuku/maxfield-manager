@@ -24,7 +24,6 @@ class AppFixtures extends Fixture
         $manager->persist(
             (new Maxfield())
                 ->setName('test')
-                ->setGpx('test')
                 ->setOwner($user)
         );
 

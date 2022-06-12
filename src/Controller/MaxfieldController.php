@@ -7,7 +7,6 @@ use App\Form\MaxfieldType;
 use App\Form\MaxfieldZipType;
 use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
-use Elkuku\MaxfieldParser\GpxHelper;
 use Elkuku\MaxfieldParser\JsonHelper;
 use Elkuku\MaxfieldParser\MaxfieldParser;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -39,21 +38,11 @@ class MaxfieldController extends BaseController
 
                 $name = end($parts);
 
-                $parser = new MaxfieldParser($uploadPath);
-
-                $maxfieldObject = $parser->parse();
-
-                $aaa = json_encode($maxfieldObject, JSON_THROW_ON_ERROR);
-
-                $gpx = (new GpxHelper())
-                    ->getRouteTrackGpx(new MaxfieldParser($uploadPath));
-
                 $json = (new JsonHelper())
                     ->getJsonData(new MaxfieldParser($uploadPath));
 
                 $maxfield = (new Maxfield())
                     ->setName($name)
-                    ->setGpx($gpx)
                     ->setJsonData($json)
                     ->setOwner($this->getUser());
 
@@ -64,6 +53,24 @@ class MaxfieldController extends BaseController
 
                 return $this->redirectToRoute('default');
             }
+
+            $jsonFile = $form->get('jsonfile')->getData();
+
+            if ($jsonFile instanceof UploadedFile) {
+                $maxfield = (new Maxfield())
+                    ->setName($jsonFile->getClientOriginalName())
+                    ->setJsonData(json_decode($jsonFile->getContent()))
+                    ->setOwner($this->getUser());
+
+                $entityManager->persist($maxfield);
+                $entityManager->flush();
+
+                $this->addFlash('success', 'File has been uploaded');
+
+                return $this->redirectToRoute('default');
+            }
+
+            $this->addFlash('warning', 'No file recieved :(');
         }
 
         return $this->renderForm('maxfield/new.html.twig', [
@@ -80,9 +87,6 @@ class MaxfieldController extends BaseController
             [
                 'maxfield' => $maxfield,
                 'jsonData' => $maxfield->getJsonData(),
-                'gpx'      => str_replace(["\r\n", "\n", "'"],
-                    '',
-                    (string)$maxfield->getGpx()),
             ]
         );
     }

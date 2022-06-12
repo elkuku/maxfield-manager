@@ -22,8 +22,6 @@ class MaxfieldCrudController extends AbstractCrudController
             IdField::new('id'),
             TextField::new('name'),
             AssociationField::new('owner'),
-            TextareaField::new('gpx')
-                ->hideOnIndex(),
             TextareaField::new('jsonData')
                 ->hideOnIndex(),
         ];

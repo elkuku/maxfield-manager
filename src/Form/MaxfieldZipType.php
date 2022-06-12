@@ -18,7 +18,7 @@ class MaxfieldZipType extends AbstractType
                 [
                     'label'       => 'ZIP File',
                     'mapped'      => false,
-                    'required'    => true,
+                    'required'    => false,
                     'constraints' => [
                         new File([
                             'maxSize'          => '1024k',
@@ -26,6 +26,24 @@ class MaxfieldZipType extends AbstractType
                                 'application/zip',
                             ],
                             'mimeTypesMessage' => 'Please upload a valid ZIP file',
+                        ]),
+                    ],
+                ]
+            )
+            ->add(
+                'jsonfile',
+                FileType::class,
+                [
+                    'label'       => 'JSON File',
+                    'mapped'      => false,
+                    'required'    => false,
+                    'constraints' => [
+                        new File([
+                            'maxSize'          => '1024k',
+                            'mimeTypes'        => [
+                                'application/json',
+                            ],
+                            'mimeTypesMessage' => 'Please upload a valid JSON file',
                         ]),
                     ],
                 ]
